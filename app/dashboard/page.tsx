@@ -88,7 +88,7 @@ export default async function DashboardPage() {
           <div className="flex flex-col space-y-2">
             <h1 className="text-3xl font-bold">Bem-vindo ao Dashboard</h1>
             <p className="text-gray-500 dark:text-gray-400">
-              Olá, {session.user?.email}! Confira o resumo do seu sistema de
+              Olá, {session.user?.name}! Confira o resumo do seu sistema de
               gestão de agências de turismo.
             </p>
           </div>

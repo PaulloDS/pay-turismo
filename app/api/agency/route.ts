@@ -61,7 +61,7 @@ export async function GET(request: Request) {
     if (search) {
       where.OR = [
         { fantasyName: { contains: search, mode: "insensitive" } },
-        { cnpj: { contains: search } },
+        { cnpj: { equals: search } },
       ];
     }
 
