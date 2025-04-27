@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  ANALYST
+}
+
+enum AgencyStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  SUSPENDED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      UserRole @default(ANALYST)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  agencies  Agency[] @relation("CreatedBy")
+}
+
+model Agency {
+  id               String       @id @default(cuid())
+  fantasyName      String
+  legalName        String
+  cnpj             String       @unique
+  stateRegistration String
+  foundingDate     DateTime
+  status           AgencyStatus @default(PENDING)
+  email            String
+  phone            String
+  address          String
+  city             String
+  state            String
+  website          String?
+  description      String?      @db.Text
+  createdBy        String
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  
+  creator          User         @relation("CreatedBy", fields: [createdBy], references: [id])
+}
