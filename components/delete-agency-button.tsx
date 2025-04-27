@@ -15,6 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 interface DeleteAgencyButtonProps extends ButtonProps {
   agencyId: string;
@@ -60,7 +61,7 @@ export default function DeleteAgencyButton({
       }
     } catch (error) {
       console.error("Erro ao excluir agência:", error);
-      alert("Falha ao excluir agência. Por favor, tente novamente.");
+      toast("Falha ao excluir agência. Por favor, tente novamente.");
     } finally {
       setIsLoading(false);
     }

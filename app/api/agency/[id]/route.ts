@@ -44,7 +44,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ message: "Não autorizado!" }, { status: 401 });
     }
 
     const agency = await prisma.agency.findUnique({
@@ -53,16 +53,16 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     if (!agency) {
       return NextResponse.json(
-        { message: "Agency not found" },
+        { message: "Agência não encontrada" },
         { status: 404 }
       );
     }
 
     return NextResponse.json(agency);
   } catch (error) {
-    console.error("Error fetching agency:", error);
+    console.error("Erro ao buscar agência:", error);
     return NextResponse.json(
-      { message: "An error occurred while fetching the agency" },
+      { message: "Ocorreu um erro ao buscar a agência" },
       { status: 500 }
     );
   }
@@ -110,11 +110,10 @@ export async function PUT(request: Request, { params }: RouteParams) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ message: "Não autorizado!" }, { status: 401 });
     }
 
     const body = await request.json();
-    console.log("Agency update request body:", body);
 
     // Validate request body
     const result = agencySchema.safeParse(body);
@@ -132,7 +131,7 @@ export async function PUT(request: Request, { params }: RouteParams) {
 
     if (!existingAgency) {
       return NextResponse.json(
-        { message: "Agency not found" },
+        { message: "Agência não encontrada" },
         { status: 404 }
       );
     }
@@ -145,7 +144,7 @@ export async function PUT(request: Request, { params }: RouteParams) {
 
       if (agencyWithSameCnpj) {
         return NextResponse.json(
-          { message: "Agency with this CNPJ already exists" },
+          { message: "Já existe uma agência com este CNPJ" },
           { status: 400 }
         );
       }
@@ -157,8 +156,6 @@ export async function PUT(request: Request, { params }: RouteParams) {
       foundingDate: new Date(result.data.foundingDate),
     };
 
-    console.log("Formatted data for agency update:", formattedData);
-
     // Update agency
     const updatedAgency = await prisma.agency.update({
       where: { id: params.id },
@@ -167,9 +164,9 @@ export async function PUT(request: Request, { params }: RouteParams) {
 
     return NextResponse.json(updatedAgency);
   } catch (error) {
-    console.error("Error updating agency:", error);
+    console.error("Erro ao atulizar agência:", error);
     return NextResponse.json(
-      { message: "An error occurred while updating the agency" },
+      { message: "Ocorreu um erro durante a atualização da agência" },
       { status: 500 }
     );
   }
@@ -207,13 +204,13 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ message: "Não autorizado!" }, { status: 401 });
     }
 
     // Only admins can delete agencies
-    if (session.user.role !== "admin") {
+    if (session.user.role !== "ADMIN") {
       return NextResponse.json(
-        { message: "Forbidden: Only administrators can delete agencies" },
+        { message: "Somente administradores podem excluir agências!" },
         { status: 403 }
       );
     }
@@ -225,7 +222,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
 
     if (!existingAgency) {
       return NextResponse.json(
-        { message: "Agency not found" },
+        { message: "Agência não encontrada" },
         { status: 404 }
       );
     }
@@ -236,13 +233,13 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     });
 
     return NextResponse.json(
-      { message: "Agency deleted successfully" },
+      { message: "Agência excluida com sucesso!" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error deleting agency:", error);
+    console.error("Erro ao excluir agência: ", error);
     return NextResponse.json(
-      { message: "An error occurred while deleting the agency" },
+      { message: "Ocorreu um erro durante a exclusão da agência" },
       { status: 500 }
     );
   }
