@@ -1,6 +1,6 @@
 # PAYLINK - Gestão de Agências de Turismo
 
-Este é um projeto completo de **Gestão de Agências de Turismo** composto por uma **API RESTful** desenvolvida com **Node.js (Express)**, **TypeScript**, **MySQL** e **Docker**, e um **Frontend** desenvolvido com **React.js** e **Tailwind CSS**. O sistema é projetado para permitir a gestão de agências de turismo, oferecendo funcionalidades de registro, login, CRUD (criar, ler, atualizar, excluir) para agências e recursos de autenticação via **JWT**.
+Este é um projeto completo de **Gestão de Agências de Turismo** composto por uma **API RESTful** desenvolvida com **Node.js (Express)**, **TypeScript**, **MySQL** e **Docker**, e um **Frontend** desenvolvido com **Next** e **Tailwind CSS**. O sistema é projetado para permitir a gestão de agências de turismo, oferecendo funcionalidades de registro, login, CRUD (criar, ler, atualizar, excluir) para agências e recursos de autenticação via **JWT**.
 
 ## Funcionalidades
 
@@ -63,6 +63,6 @@ A interface foi construída com **React.js** e **Tailwind CSS**, com uma arquite
 ## Tecnologias Utilizadas
 
 - **Backend**: Node.js, Express.js, TypeScript, MySQL, JWT, Swagger (documentação), Docker.
-- **Frontend**: React.js, Tailwind CSS, Shadcn/ui.
+- **Frontend**: Next, Tailwind CSS, Shadcn/ui.
 - **Testes**: Jest (para testes unitários da API).
 - **Docker Compose**: Para orquestrar os containers do ambiente de desenvolvimento.
